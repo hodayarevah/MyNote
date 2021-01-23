@@ -17,6 +17,7 @@ class NotesView extends Component {
   componentDidMount(){
     const {CategoryId} = this.props.route.params;
     this.CategoryWatch = CategoryId;
+
     this._unsubscribeFocus = this.props.navigation.addListener('focus',(payload)=>{this.CategoryWatch = CategoryId;  this.getAsyncStorage(CategoryId); });
   }
 
@@ -33,7 +34,9 @@ class NotesView extends Component {
   }
   getAsyncStorage = async (CategoryId) => {
     const NotesList = [];
+
     try {
+      const {CategoryId} = this.props.route.params;
       const getAsyncStorageData = await AsyncStorage.getItem('Notes');
       const getAsyncStorageParsed = JSON.parse(getAsyncStorageData);
       if(getAsyncStorageParsed !== null) { 

@@ -24,10 +24,15 @@ class NewNoteForm extends Component {
   
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     this.setState({ hasCameraPermission: status === "granted" });  
-    this.getAsyncStorage();
+    this._unsubscribeFocus = this.props.navigation.addListener('focus',(payload)=>{ this.getAsyncStorage(); });
+
   }
 
 
+
+componentWillUnmount(){
+  this._unsubscribeFocus();
+}
 
   SubmitNote =()=>{
 
